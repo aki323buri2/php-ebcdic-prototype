@@ -32,6 +32,9 @@
 				<div class="tile is-child box">
 					<p class="title">Three</p>
 					<p>...</p>
+
+					<div id="app"></div>
+					
 				</div>
 			</div>
 		</div>

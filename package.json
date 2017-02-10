@@ -16,5 +16,12 @@
 
     , "font-awesome": "*"
     , "bulma": "*"
+
+    , "babel-preset-stage-0": "*"
+    , "babel-preset-react": "*"
+    , "babel-plugin-transform-runtime": "*"
+
+    , "react": "*"
+    , "react-dom": "*"
   }
 }

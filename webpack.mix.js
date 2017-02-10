@@ -12,6 +12,16 @@ const { mix } = require('laravel-mix');
  */
 mix.sourceMaps();
 
+mix.webpackConfig({module: {rules: [{
+	test: /\.js$/, 
+	exclude: /(node_modules|bower_components)/, 
+	loader: 'babel-loader', 
+	options: {
+		presets: ['es2015', 'stage-0', 'react'], 
+		plugins: ['transform-runtime'], 
+	}, 
+}]}});
+
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css');
 
