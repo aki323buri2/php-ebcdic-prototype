@@ -7,24 +7,7 @@ const columns = {
 	ritsu  : { title: '利率(%)' }, 
 };
 
-const rows = [
-
-	{ syozok: 170, bukame: '水産１課' }, 
-	{ syozok: 150, bukame: '水産２課' }, 
-	{ syozok: 131, bukame: '水産３課' }, 
-	{ syozok: 141, bukame: '水産４課' }, 
-	{ syozok: 160, bukame: '日配１課' }, 
-	{ syozok: 134, bukame: '日配２課' }, 
-	{ syozok: 161, bukame: '日配３課' }, 
-	{ syozok: 610, bukame: '東日本水産' }, 
-	{ syozok: 620, bukame: '東日本日配' }, 
-	{ syozok: 710, bukame: '山陰量販' }, 
-	{ syozok: 830, bukame: '中部水産' }, 
-	{ syozok: 910, bukame: '西日本水産１課' }, 
-	{ syozok: 920, bukame: '西日本水産２課' }, 
-	{ syozok: 930, bukame: '西日本テナント' }, 
-	
-];
+const rows = [];
 
 const Table = ({
 	columns, 
@@ -49,9 +32,41 @@ const Table = ({
 		</tbody>
 	</table>
 );
-const app = <Table columns={columns} rows={rows} />;
 
+/**
+ * action creators and reducer
+ */
+import { createActions } from 'redux-actions';
+import { handleActions } from 'redux-actions';
+const actions = createActions(...[
+	'SKELETON', 
+]);
+const reducer = handleActions({
+	SKELETON: (state, { payload }) => ({ ...state, rows: payload }), 
+}, { columns, rows });
+/**
+ * store
+ */
+import { createStore, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
+const store = createStore(reducer, applyMiddleware(logger()));
+/**
+ * container
+ */
+import { Provider, connect } from 'react-redux';
+const App = connect(state => state, actions)(Table);
+const app = <Provider store={store}><App /></Provider>
+/**
+ * render
+ */
 import React from 'react';
 import { render } from 'react-dom';
-
 render(app, document.querySelector('#app'));
+
+/**
+ * fetch
+ */
+fetch('/home/skeleton').then(res => res.json()).then(json => 
+{
+	store.dispatch(actions.skeleton(json));
+});

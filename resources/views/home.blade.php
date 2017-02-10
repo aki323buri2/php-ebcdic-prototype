@@ -14,6 +14,20 @@
 					<span class="icon"><i class="fa fa-home"></i></span>
 					<span>ほーむ</span>
 				</div>
+				<div class="nav-item">
+				@foreach ([
+					['skeleton'],  
+					['bukasne', Carbon\Carbon::yesterday()->format('Ymd'), 620], 
+					['tokusne', Carbon\Carbon::yesterday()->format('Ymd'), 620], 
+				] as $names)
+					<a
+						href="{{ url('/home/'.implode('/', $names)) }}"
+						class="button"
+					>
+						{{ $names[0] }}
+					</a>
+				@endforeach
+				</div>
 			</div>
 		</nav>
 		<div>&nbsp;</div>

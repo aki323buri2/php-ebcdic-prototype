@@ -23,5 +23,11 @@
 
     , "react": "*"
     , "react-dom": "*"
+
+    , "redux-actions": "*"
+    , "redux-logger": "*"
+    
+    , "redux": "*"
+    , "react-redux": "*"
   }
 }
