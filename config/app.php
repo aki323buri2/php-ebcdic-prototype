@@ -64,7 +64,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    // 'timezone' => 'UTC',
+    'timezone' => 'Asia/Tokyo', 
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +78,8 @@ return [
     |
     */
 
-    'locale' => 'en',
+    // 'locale' => 'en',
+    'locale' => 'ja',
 
     /*
     |--------------------------------------------------------------------------
@@ -177,6 +179,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /**
+         * Application hack...
+         */
+        App\Providers\AppHackServiceProvider::class,
     ],
 
     /*

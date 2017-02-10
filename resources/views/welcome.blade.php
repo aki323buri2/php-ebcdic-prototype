@@ -77,6 +77,10 @@
                 </div>
             @endif
 
+            <div class="top-left links">
+                <a href="{{ url('/home') }}">Home</a>
+            </div>
+
             <div class="content">
                 <div class="title m-b-md">
                     Laravel
