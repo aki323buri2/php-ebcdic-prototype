@@ -1,0 +1,30 @@
+/**
+ * font-awesome
+ */
+@import 'node_modules/font-awesome/scss/font-awesome';
+
+/**
+ * bulma
+ */
+$family-sans-serif:
+	-apple-system
+	, BlinkMacSystemFont
+	, "Segoe UI"
+	, "Roboto"
+	, "Oxygen"
+	, "Ubuntu"
+	, "Cantarell"
+	, "Fira Sans"
+	, "Droid Sans"
+	, "Helvetica Neue"
+	, "Helvetica"
+	, Meiryo 	// !!! ひらがな用 !!!
+	, "Arial", sans-serif !default
+
+@import 'node_modules/bulma/bulma';
+
+// for IE10
+.tile 
+{
+	-ms-flex-preferred-size: auto;
+}
