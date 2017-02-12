@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Route;
+use DB;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -51,15 +53,43 @@ class HomeController extends Controller
             ['syozok'=>910, 'bukame'=>'西日本水産１課'], 
             ['syozok'=>920, 'bukame'=>'西日本水産２課'], 
             ['syozok'=>930, 'bukame'=>'西日本テナント'], 
-        
+
         ])->map(function ($a) { return (object)$a; });
+    }
+    public function prepare($kjob, $syozok)
+    {
+        $kjob = Carbon::parse($kjob)->format('Y-m-d');
+        $suffix = $this->suffix($syozok);
+        $connection = $this->connection();
+        return compact('kjob', 'suffix', 'connection');
+    }
+    public function suffix($syozok)
+    {
+        switch ($syozok)
+        {
+            case 610: 
+            case 620: 
+                return '610'; 
+            case 710: 
+                return '710'; 
+            case 910: 
+            case 920: 
+            case 930: 
+                return '910'; 
+            default: 
+                return '';
+        }
+    }
+    public function connection()
+    {
+        return DB::connection();
     }
     public function bukasne($kjob, $syozok)
     {
-        dump(compact('kjob', 'syozok', 'tokuno'));
+        dump($this->prepare($kjob, $syozok));
     }
     public function tokusne($kjob, $syozok, $tokuno = null)
     {
-        dump(compact('kjob', 'syozok', 'tokuno'));
+        dump($this->prepare($kjob, $syozok));
     }
 }

@@ -14,6 +14,8 @@ class AppHackServiceProvider extends ServiceProvider
     public function boot()
     {
         \App\Http\Controllers\HomeController::routes();
+
+        config(['database.default' => 'sqlite']);
     }
 
     /**

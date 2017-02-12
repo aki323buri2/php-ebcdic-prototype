@@ -25,8 +25,10 @@ const Table = ({
 		{rows.map((row, i) =>
 			<tr key={i}>
 			{Object.entries(columns).map(([ name ]) =>
-				<td key={name} className={name}>{row[name]}</td>
-			)}
+			{
+				const value = row[name];
+				return <td key={name} className={name}>{value}</td>
+			})}
 			</tr>
 		)}
 		</tbody>
@@ -40,9 +42,20 @@ import { createActions } from 'redux-actions';
 import { handleActions } from 'redux-actions';
 const actions = createActions(...[
 	'SKELETON', 
+	'REPLACE', 
 ]);
 const reducer = handleActions({
 	SKELETON: (state, { payload }) => ({ ...state, rows: payload }), 
+	REPLACE : (state, { payload }) =>
+	{
+		const { rows } = state;
+		const { where, replace } = payload;
+		const before = rows[where];
+		const after = {...before, ...replace};
+		const inserted = [...rows.slice(0, where), after, ...rows.slice(where + 1)];
+
+		return {...state, rows: inserted};
+	}
 }, { columns, rows });
 /**
  * store
@@ -69,4 +82,13 @@ render(app, document.querySelector('#app'));
 fetch('/home/skeleton').then(res => res.json()).then(json => 
 {
 	store.dispatch(actions.skeleton(json));
-});
+	return json;
+})
+.then(json => 
+{
+	json.map((row, i) =>
+	{
+		store.dispatch(actions.replace({ where: i, replace: { ukin: 1000000, genkak: 800000 } }));
+	});
+})
+;
